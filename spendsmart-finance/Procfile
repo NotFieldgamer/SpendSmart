@@ -1,0 +1,3 @@
+# Heroku / general PaaS fallback
+# Render uses render.yaml, but this Procfile works on Heroku or any Procfile-aware platform.
+web: node server/server.js

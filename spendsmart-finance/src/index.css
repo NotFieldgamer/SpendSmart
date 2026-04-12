@@ -1,0 +1,507 @@
+/* ─────────────────────────────────────────────────────────────
+   SpendSmart Finance — Design System
+   Based on: Stitch MCP "Premium Finance Dashboard" (The Financial Sanctuary)
+   Stack: Pure Tailwind CSS v4 via @tailwindcss/vite — no PostCSS, no autoprefixer
+   Colors: Indigo primary (#3525cd / #4f46e5) + Emerald secondary (#006c49)
+           + Crimson tertiary (#95002b), light mode base
+───────────────────────────────────────────────────────────── */
+
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Round');
+
+/* ── Tailwind v4 entry point ──────────────────────────────── */
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════
+   @THEME — Tailwind v4 Design Tokens
+   All tokens registered here become first-class utility classes.
+   e.g. text-primary, bg-surface-container-lowest, shadow-card
+═══════════════════════════════════════════════════════════ */
+@theme {
+
+  /* ── Fonts ──────────────────────────────────────────────── */
+  --font-headline: 'Manrope', system-ui, sans-serif;
+  --font-body:     'Inter', system-ui, sans-serif;
+  --font-label:    'Inter', system-ui, sans-serif;
+
+  /* ── Color: Primary — Indigo ────────────────────────────── */
+  --color-primary:            #3525cd;
+  --color-primary-cnt:        #4f46e5;
+  --color-primary-fixed:      #e2dfff;
+  --color-primary-fdim:       #c3c0ff;
+
+  /* ── Color: Secondary — Emerald ─────────────────────────── */
+  --color-secondary:          #006c49;
+  --color-secondary-cnt:      #6cf8bb;
+  --color-secondary-fixed:    #6ffbbe;
+  --color-secondary-fdim:     #4edea3;
+
+  /* ── Color: Tertiary — Crimson ──────────────────────────── */
+  --color-tertiary:           #95002b;
+  --color-tertiary-cnt:       #bf0f3c;
+  --color-tertiary-fixed:     #ffdadb;
+
+  /* ── Color: Error ───────────────────────────────────────── */
+  --color-error:              #ba1a1a;
+  --color-error-cnt:          #ffdad6;
+
+  /* ── Color: Surfaces (Light mode base) ──────────────────── */
+  --color-background:              #faf8ff;
+  --color-surface:                 #faf8ff;
+  --color-surface-dim:             #d2d9f4;
+  --color-surface-bright:          #faf8ff;
+  --color-surface-container:       #eaedff;
+  --color-surface-container-low:   #f2f3ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-high:  #e2e7ff;
+  --color-surface-container-highest: #dae2fd;
+  --color-surface-variant:         #dae2fd;
+  --color-surface-tint:            #4d44e3;
+
+  /* ── Color: Text / "On" colors ──────────────────────────── */
+  --color-on-surface:          #131b2e;
+  --color-on-surface-variant:  #464555;
+  --color-on-background:       #131b2e;
+  --color-on-primary:          #ffffff;
+  --color-on-primary-cnt:      #dad7ff;
+  --color-on-secondary:        #ffffff;
+  --color-on-secondary-cnt:    #00714d;
+  --color-on-tertiary:         #ffffff;
+  --color-on-tertiary-cnt:     #ffd0d2;
+  --color-on-error:            #ffffff;
+  --color-on-error-cnt:        #93000a;
+
+  /* ── Color: Outlines ───────────────────────────────────── */
+  --color-outline:             #777587;
+  --color-outline-variant:     #c7c4d8;
+
+  /* ── Color: Inverse ────────────────────────────────────── */
+  --color-inverse-surface:     #283044;
+  --color-inverse-primary:     #c3c0ff;
+  --color-inverse-on-surface:  #eef0ff;
+
+  /* ── Shadows ────────────────────────────────────────────── */
+  /* "Atmospheric" shadows per The Fluid Architect design system */
+  --shadow-card:    0 4px 24px -8px rgba(19, 27, 46, 0.08),
+                    0 1px 4px -1px rgba(19, 27, 46, 0.04);
+  --shadow-premium: 0 20px 40px -12px rgba(19, 27, 46, 0.12),
+                    0 4px 12px -4px rgba(53, 37, 205, 0.08);
+  --shadow-glow:    0 0 40px rgba(79, 70, 229, 0.15);
+  --shadow-inner:   inset 0 1px 0 rgba(255,255,255,0.06);
+
+  /* ── Border Radius ──────────────────────────────────────── */
+  /* Design system uses "full" roundness — 1rem default for cards */
+  --radius-card: 1.5rem;  /* rounded-3xl equivalent */
+  --radius-btn:  0.75rem; /* rounded-xl  equivalent */
+  --radius-pill: 9999px;
+
+  /* ── Spacing (spacing-scale: 2 from Stitch) ─────────────── */
+  /* Tailwind v4 uses default spacing; we add named semantic spacing */
+  --spacing-sidebar: 16rem;  /* 256px sidebar width */
+  --spacing-topbar:  4rem;   /* 64px topbar height */
+
+  /* ── Animations ─────────────────────────────────────────── */
+  --animate-fade-in:       fade-in 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+  --animate-slide-up:      slide-up 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+  --animate-scale-in:      scale-in 0.25s cubic-bezier(0.23, 1, 0.32, 1) both;
+  --animate-pulse-soft:    pulse-soft 3s ease-in-out infinite;
+  --animate-spin:          spin 1s linear infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DARK MODE — .dark class overrides
+   Deep navy palette matching design system dark inverse
+═══════════════════════════════════════════════════════════ */
+.dark {
+  /* Primary — lighter indigo/violet for dark contrast */
+  --color-primary:        #c3c0ff;
+  --color-primary-cnt:    #635af5;
+  --color-primary-fixed:  #1e1960;
+  --color-primary-fdim:   #3730a3;
+
+  /* Secondary — lighter emerald */
+  --color-secondary:      #4edea3;
+  --color-secondary-cnt:  #003725;
+  --color-secondary-fixed:#00412c;
+  --color-secondary-fdim: #005a3c;
+
+  /* Tertiary — lighter crimson-pink */
+  --color-tertiary:       #ff94aa;
+  --color-tertiary-cnt:   #500019;
+  --color-tertiary-fixed: #3d0012;
+
+  /* Dark surfaces — deep navy */
+  --color-background:                #0b0f1a;
+  --color-surface:                   #0b0f1a;
+  --color-surface-dim:               #070a12;
+  --color-surface-bright:            #262d41;
+  --color-surface-container:         #161e32;
+  --color-surface-container-low:     #101628;
+  --color-surface-container-lowest:  #060912;
+  --color-surface-container-high:    #1c263e;
+  --color-surface-container-highest: #23304d;
+  --color-surface-variant:           #1e2842;
+  --color-surface-tint:              #c3c0ff;
+
+  /* Text on dark */
+  --color-on-surface:         #dae2fd;
+  --color-on-surface-variant: #8f9ab5;
+  --color-on-background:      #dae2fd;
+  --color-on-primary:         #0f0069;
+  --color-on-primary-cnt:     #dad7ff;
+  --color-on-secondary:       #00231a;
+  --color-on-secondary-cnt:   #004d35;
+  --color-on-tertiary:        #3c0012;
+  --color-on-tertiary-cnt:    #ffd0d2;
+
+  /* Outline on dark */
+  --color-outline:         #646c82;
+  --color-outline-variant: #2a3449;
+
+  /* Adjusted shadows for dark mode */
+  --shadow-card:    0 4px 24px -8px rgba(0, 0, 0, 0.35),
+                    0 1px 4px -1px rgba(0, 0, 0, 0.25);
+  --shadow-premium: 0 20px 40px -12px rgba(0, 0, 0, 0.5),
+                    0 4px 12px -4px rgba(195, 192, 255, 0.1);
+  --shadow-glow:    0 0 40px rgba(195, 192, 255, 0.12);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   KEYFRAME ANIMATIONS
+═══════════════════════════════════════════════════════════ */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.7; }
+  50%       { opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BASE LAYER
+═══════════════════════════════════════════════════════════ */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-on-surface);
+    background-color: var(--color-background);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s cubic-bezier(0.23, 1, 0.32, 1),
+                color 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headline);
+    line-height: 1.25;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CUSTOM UTILITIES LAYER
+   These are composable, semantic helpers used across components.
+   They extend Tailwind v4's utility layer.
+═══════════════════════════════════════════════════════════ */
+@layer utilities {
+
+  /* ── Gradient fills ──────────────────────────────────────── */
+  /* Primary CTA gradient: indigo → violet (135°, per "Jewel" treatment) */
+  .bg-primary-gradient {
+    background-image: linear-gradient(135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-cnt) 100%);
+  }
+
+  /* Secondary/income gradient: emerald tones */
+  .bg-secondary-gradient {
+    background-image: linear-gradient(135deg,
+      var(--color-secondary) 0%,
+      var(--color-secondary-fdim) 100%);
+  }
+
+  /* Tertiary/expense gradient: crimson */
+  .bg-tertiary-gradient {
+    background-image: linear-gradient(135deg,
+      var(--color-tertiary-cnt) 0%,
+      var(--color-tertiary) 100%);
+  }
+
+  /* ── Gradient text ───────────────────────────────────────── */
+  .primary-gradient-text {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-cnt));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .secondary-gradient-text {
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-fdim));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Glassmorphism panels ────────────────────────────────── */
+  /* Sidebar & Topbar: frosted glass at 80% opacity + blur —
+     per "Glass & Gradient" rule from The Financial Sanctuary */
+  .glass-sidebar {
+    background-color: color-mix(in srgb, var(--color-surface) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Card glassmorphism: surface-container-lowest at 90% */
+  .glass-card {
+    background-color: color-mix(in srgb, var(--color-surface-container-lowest) 90%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* ── Chart bars ──────────────────────────────────────────── */
+  .chart-bar-income {
+    background: linear-gradient(180deg,
+      var(--color-secondary-fdim) 0%,
+      var(--color-secondary) 100%);
+    border-radius: 0.5rem 0.5rem 0 0; /* "Soft Edge" rounded tops */
+  }
+
+  .chart-bar-expense {
+    background: linear-gradient(180deg,
+      var(--color-tertiary-cnt) 0%,
+      var(--color-tertiary) 100%);
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  /* ── Card shimmer overlay (credit card) ──────────────────── */
+  .card-shimmer {
+    position: relative;
+  }
+  .card-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.12) 50%,
+      transparent 60%
+    );
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* ── Animations ──────────────────────────────────────────── */
+  .animate-fade-in   { animation: var(--animate-fade-in); }
+  .animate-slide-up  { animation: var(--animate-slide-up); }
+  .animate-scale-in  { animation: var(--animate-scale-in); }
+  .animate-pulse-soft { animation: var(--animate-pulse-soft); }
+  .animate-spin      { animation: var(--animate-spin); }
+
+  /* ── Staggered children ──────────────────────────────────── */
+  .stagger-children > * { animation: var(--animate-fade-in); }
+  .stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+  .stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+  .stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+  .stagger-children > *:nth-child(5) { animation-delay: 240ms; }
+  .stagger-children > *:nth-child(6) { animation-delay: 300ms; }
+
+  /* ── Typography helpers ──────────────────────────────────── */
+  /* Display scale — Manrope, tight tracking */
+  .text-display-lg {
+    font-family: var(--font-headline);
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+  }
+  .text-display-md {
+    font-family: var(--font-headline);
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+
+  /* Headline scale */
+  .text-headline-lg {
+    font-family: var(--font-headline);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .text-headline-md {
+    font-family: var(--font-headline);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .text-headline-sm {
+    font-family: var(--font-headline);
+    font-size: 1.375rem;
+    font-weight: 600;
+  }
+
+  /* Title + Body + Label */
+  .text-title-lg  { font-size: 1.125rem; font-weight: 600; }
+  .text-title-sm  { font-size: 1rem;     font-weight: 500; color: var(--color-on-surface-variant); }
+  .text-body-lg   { font-family: var(--font-body); font-size: 1rem;      line-height: 1.65; }
+  .text-body-md   { font-family: var(--font-body); font-size: 0.875rem;  line-height: 1.6; letter-spacing: -0.011em; }
+  .text-label-lg  { font-family: var(--font-label); font-size: 0.875rem; font-weight: 500; }
+  .text-label-md  { font-family: var(--font-label); font-size: 0.75rem;  font-weight: 500; }
+  .text-label-sm  { font-family: var(--font-label); font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* ── Ambient background blob (floating radial gradient) ────── */
+  .bg-ambient-primary {
+    background: radial-gradient(ellipse 60% 50% at 50% 0%,
+      color-mix(in srgb, var(--color-primary-cnt) 8%, transparent) 0%,
+      transparent 70%);
+  }
+  .bg-ambient-secondary {
+    background: radial-gradient(ellipse 60% 50% at 50% 100%,
+      color-mix(in srgb, var(--color-secondary) 6%, transparent) 0%,
+      transparent 70%);
+  }
+
+  /* ── Ghost border (accessibility fallback) ───────────────── */
+  /* "outline-variant at 20% opacity" per design system */
+  .ghost-border {
+    border: 1px solid color-mix(in srgb, var(--color-outline-variant) 20%, transparent);
+  }
+
+  /* ── Pill / chip ─────────────────────────────────────────── */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    font-family: var(--font-label);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background-color: var(--color-surface-container-high);
+    color: var(--color-on-surface-variant);
+    transition: background-color 180ms cubic-bezier(0.23, 1, 0.32, 1),
+                color 180ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .chip:hover {
+    background-color: var(--color-primary-fixed);
+    color: var(--color-primary);
+  }
+
+  /* ── Focus ring (replaces default outline) ───────────────── */
+  .focus-ring:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--color-primary) 40%, transparent);
+    outline-offset: 2px;
+    border-radius: inherit;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL COMPONENT STYLES (not Tailwind utilities)
+═══════════════════════════════════════════════════════════ */
+
+/* ── Interactive element transitions ─────────────────────── */
+/* "Liquid" cubic-bezier(0.23, 1, 0.32, 1) per design system */
+button, a, input, select, textarea {
+  transition: all 180ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ── Input / Form styles ─────────────────────────────────── */
+input, select, textarea {
+  color: var(--color-on-surface);
+  background-color: var(--color-surface-container-lowest);
+}
+
+input::placeholder, textarea::placeholder {
+  color: color-mix(in srgb, var(--color-on-surface-variant) 60%, transparent);
+}
+
+/* Focus: ghost border + subtle glow per design system */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primary) 40%, transparent),
+              0 0 0 4px color-mix(in srgb, var(--color-primary) 8%, transparent);
+}
+
+/* Dark mode date picker icon */
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+}
+
+/* ── Scrollbar — thin and tonal ──────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: 2px;
+  transition: background 180ms ease;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-outline); }
+
+/* ── Recharts integration ────────────────────────────────── */
+/* Text uses on-surface-variant token from design system */
+.recharts-text, .recharts-legend-item-text {
+  fill: var(--color-on-surface-variant) !important;
+  font-family: var(--font-label);
+  font-size: 11px !important;
+}
+.recharts-cartesian-grid line {
+  stroke: color-mix(in srgb, var(--color-outline-variant) 40%, transparent) !important;
+}
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background-color: var(--color-surface-container-highest) !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  box-shadow: var(--shadow-card) !important;
+  padding: 0.75rem 1rem !important;
+}
+.recharts-tooltip-label {
+  color: var(--color-on-surface) !important;
+  font-family: var(--font-headline);
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  margin-bottom: 4px !important;
+}
+.recharts-tooltip-item {
+  color: var(--color-on-surface-variant) !important;
+  font-family: var(--font-body);
+  font-size: 12px !important;
+}
+
+/* ── Selection highlight ─────────────────────────────────── */
+::selection {
+  background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  color: var(--color-on-surface);
+}
