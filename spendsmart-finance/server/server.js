@@ -22,14 +22,11 @@ const allowedOrigins = process.env.CLIENT_URL
   : ['http://localhost:5173'];
 
 app.use(cors({
-  origin: (origin, cb) => {
-    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-    cb(new Error(`CORS: origin '${origin}' not allowed`));
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+  origin: process.env.CLIENT_URL || 'https://spendsmart13.vercel.app',
+  credentials: true
+}))
+
+app.options('*', cors())
 
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true }));
@@ -38,11 +35,11 @@ app.get('/api/health', (_req, res) =>
   res.json({ success: true, message: 'SpendSmart API is running', timestamp: new Date().toISOString() })
 );
 
-app.use('/api/auth',         authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/transactions', transactionRoutes);
-app.use('/api/dashboard',    dashboardRoutes);
-app.use('/api/export',       exportRoutes);
-app.use('/api/analytics',    analyticsRoutes);
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/export', exportRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 app.use((_req, res) => res.status(404).json({ success: false, message: 'Route not found' }));
 app.use(errorHandler);
