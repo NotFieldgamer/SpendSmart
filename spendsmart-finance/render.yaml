@@ -10,11 +10,11 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: MONGODB_URI
-        sync: false
-      - key: JWT_SECRET
-        generateValue: true
+      - key: PORT
+        value: 5000
       - key: JWT_EXPIRES_IN
         value: 7d
-      - key: CLIENT_URL
-        sync: false
+      # ── Set these manually in Render Dashboard → Environment ──────────────
+      # MONGODB_URI  → your Atlas connection string
+      # JWT_SECRET   → click "Generate" in Render for a secure value
+      # CLIENT_URL   → your Vercel frontend URL (e.g. https://spendsmart.vercel.app)

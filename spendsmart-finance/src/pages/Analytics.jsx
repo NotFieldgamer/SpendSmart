@@ -143,13 +143,13 @@ export default function Analytics() {
               <p className="text-xs text-on-surface-variant mb-5">Emergency Fund — $20,000 target</p>
               <div className="relative flex items-center justify-center mb-2">
                 <svg viewBox="0 0 100 60" className="w-full max-w-[180px]">
-                  <path d="M10 55 A45 45 0 0 1 90 55" fill="none" stroke="rgb(var(--c-sc-high))" strokeWidth="8" strokeLinecap="round" />
+                  <path d="M10 55 A45 45 0 0 1 90 55" fill="none" stroke="var(--color-secondary-container-high)" strokeWidth="8" strokeLinecap="round" />
                   <path d="M10 55 A45 45 0 0 1 90 55" fill="none" stroke="url(#sg)" strokeWidth="8" strokeLinecap="round"
                     strokeDasharray="141.4" strokeDashoffset={`${141.4 * (1 - 0.64)}`} />
                   <defs>
                     <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%"   stopColor="rgb(var(--c-primary))" />
-                      <stop offset="100%" stopColor="rgb(var(--c-secondary-fdim))" />
+                      <stop offset="0%"   stopColor="var(--color-primary)" />
+                      <stop offset="100%" stopColor="var(--color-secondary-fdim)" />
                     </linearGradient>
                   </defs>
                 </svg>

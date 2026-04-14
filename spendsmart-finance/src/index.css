@@ -76,6 +76,13 @@
   --color-outline:             #777587;
   --color-outline-variant:     #c7c4d8;
 
+  /* ── Color: Container aliases (used in components) ──────── */
+  /* Components use bg-secondary-container/30, bg-tertiary-container etc. */
+  --color-secondary-container:      #cdfce8;
+  --color-tertiary-container:       #ffdadb;
+  --color-error-container:          #ffdad6;
+  --color-secondary-container-high: #a0f4d0;
+
   /* ── Color: Inverse ────────────────────────────────────── */
   --color-inverse-surface:     #283044;
   --color-inverse-primary:     #c3c0ff;
@@ -165,6 +172,12 @@
   --shadow-premium: 0 20px 40px -12px rgba(0, 0, 0, 0.5),
                     0 4px 12px -4px rgba(195, 192, 255, 0.1);
   --shadow-glow:    0 0 40px rgba(195, 192, 255, 0.12);
+
+  /* Dark mode container aliases */
+  --color-secondary-container:       #00412c;
+  --color-tertiary-container:        #3d0012;
+  --color-error-container:           #93000a;
+  --color-secondary-container-high:  #005a3c;
 }
 
 /* ═══════════════════════════════════════════════════════════
